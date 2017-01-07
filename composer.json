@@ -1,5 +1,5 @@
 {
-  "name": "bosnadev/database",
+  "name": "mammutgroup/database",
   "description": "Eloquent Extended, added some PostgreSQL features",
   "keywords": ["laravel", "eloquent", "database", "postgresql", "database"],
   "license": "MIT",
