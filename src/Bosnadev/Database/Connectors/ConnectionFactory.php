@@ -6,7 +6,7 @@ use PDO;
 use Illuminate\Database\MySqlConnection;
 use Illuminate\Database\SQLiteConnection;
 use Illuminate\Database\SqlServerConnection;
-use Bosnadev\Database\PostgresConnection;
+use Bosnadev\Database\MysqlConnection as myMysqlConnection;
 
 /**
  * Class ConnectionFactory
@@ -20,7 +20,7 @@ class ConnectionFactory extends \Illuminate\Database\Connectors\ConnectionFactor
      * @param string $database
      * @param string $prefix
      * @param array $config
-     * @return PostgresConnection|MySqlConnection|SQLiteConnection|SqlServerConnection|mixed|object
+     * @return MysqlConnection|MySqlConnection|SQLiteConnection|SqlServerConnection|mixed|object
      * @throws \InvalidArgumentException
      */
     protected function createConnection($driver, $connection, $database, $prefix = '', array $config = array())
@@ -30,7 +30,7 @@ class ConnectionFactory extends \Illuminate\Database\Connectors\ConnectionFactor
         }
 
         if ($driver === 'pgsql') {
-            return new PostgresConnection($connection, $database, $prefix, $config);
+            return new myMysqlConnection($connection, $database, $prefix, $config);
         }
 
         return parent::createConnection($driver, $connection, $database, $prefix, $config);
