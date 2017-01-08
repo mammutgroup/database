@@ -1,17 +1,17 @@
 {
-  "name": "Mammutgroup/database",
+  "name": "mammutgroup/database",
   "description": "Eloquent Extended, added some PostgreSQL features",
   "keywords": ["laravel", "eloquent", "database", "postgresql", "database"],
   "license": "MIT",
   "homepage": "https://Mammutgroup.com",
   "authors": [
     {
-      "name": "Mirza Pasic",
-      "email": "mirza@Mammutgroup.com"
+      "name": "sayad aazami",
+      "email": "sayadaazami@gmail.com"
     },
     {
-      "name": "Peter Haza",
-      "email": "peter.haza@gmail.com"
+      "name": "mohammadreza honarkhah",
+      "email": "m.honar@gmail.com"
     }
   ],
   "require": {
