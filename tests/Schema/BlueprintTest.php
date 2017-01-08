@@ -1,6 +1,6 @@
 <?php
 
-use Bosnadev\Database\Schema\Blueprint;
+use Mammutgroup\Database\Schema\Blueprint;
 
 class BlueprintTest extends BaseTestCase
 {

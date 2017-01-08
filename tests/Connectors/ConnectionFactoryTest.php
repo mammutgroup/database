@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Container\Container;
-use Bosnadev\Database\PostgresConnection;
-use Bosnadev\Database\Connectors\ConnectionFactory;
+use Mammutgroup\Database\MysqlConnection;
+use Mammutgroup\Database\Connectors\ConnectionFactory;
 
 class ConnectionFactoryBaseTest extends BaseTestCase
 {
@@ -16,7 +16,7 @@ class ConnectionFactoryBaseTest extends BaseTestCase
         $factory->shouldAllowMockingProtectedMethods();
         $conn    = $factory->createConnection('pgsql', $pdo, 'database', 'prefix', $pgConfig);
 
-        $this->assertInstanceOf(PostgresConnection::class, $conn);
+        $this->assertInstanceOf(MysqlConnection::class, $conn);
     }
 }
 

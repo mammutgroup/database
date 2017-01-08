@@ -1,13 +1,13 @@
 <?php
 
-use Bosnadev\Database\PostgresConnection;
+use Mammutgroup\Database\MysqlConnection;
 use Doctrine\DBAL\Driver\PDOPgSql\Driver;
 
-class PostgresConnectionTest extends BaseTestCase
+class MysqlConnectionTest extends BaseTestCase
 {
     public function testReturnsDoctrineDriver()
     {
-        $conn = Mockery::mock(PostgresConnection::class)->makePartial();
+        $conn = Mockery::mock(MysqlConnection::class)->makePartial();
         $this->assertInstanceOf(Driver::class, $conn->getDoctrineDriver());
     }
 }

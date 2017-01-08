@@ -1,14 +1,14 @@
 <?php
 
-namespace Bosnadev\Database;
+namespace Mammutgroup\Database;
 
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\DatabaseServiceProvider as IlluminateServiceProvider;
-use Bosnadev\Database\Connectors\ConnectionFactory;
+use Mammutgroup\Database\Connectors\ConnectionFactory;
 
 /**
  * Class DatabaseServiceProvider
- * @package Bosnadev\Database
+ * @package Mammutgroup\Database
  */
 class DatabaseServiceProvider extends IlluminateServiceProvider
 {
@@ -19,6 +19,7 @@ class DatabaseServiceProvider extends IlluminateServiceProvider
      */
     public function register()
     {
+        parent::register();
         // The connection factory is used to create the actual connection instances on
         // the database. We will inject the factory into the manager so that it may
         // make the connections while they are actually needed and not of before.

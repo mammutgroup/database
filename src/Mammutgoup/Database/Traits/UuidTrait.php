@@ -1,6 +1,6 @@
 <?php
 
-namespace Bosnadev\Database\Traits;
+namespace Mammutgroup\Database\Traits;
 
 use Ramsey\Uuid\Uuid;
 use RuntimeException;
@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class UuidTrait
- * @package Bosnadev\Database\src\Traits
+ * @package Mammutgroup\Database\src\Traits
  */
 trait UuidTrait
 {

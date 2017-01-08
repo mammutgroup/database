@@ -1,13 +1,13 @@
 {
-  "name": "mammutgroup/database",
+  "name": "Mammutgroup/database",
   "description": "Eloquent Extended, added some PostgreSQL features",
   "keywords": ["laravel", "eloquent", "database", "postgresql", "database"],
   "license": "MIT",
-  "homepage": "https://bosnadev.com",
+  "homepage": "https://Mammutgroup.com",
   "authors": [
     {
       "name": "Mirza Pasic",
-      "email": "mirza@bosnadev.com"
+      "email": "mirza@Mammutgroup.com"
     },
     {
       "name": "Peter Haza",
@@ -26,7 +26,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Bosnadev\\Database\\": "src/Bosnadev/Database/"
+      "Mammutgroup\\Database\\": "src/Mammutgroup/Database/"
     }
   },
   "autoload-dev": {

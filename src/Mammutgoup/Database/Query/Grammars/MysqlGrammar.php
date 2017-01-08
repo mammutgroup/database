@@ -1,16 +1,16 @@
 <?php
 
-namespace Bosnadev\Database\Query\Grammars;
+namespace Mammutgroup\Database\Query\Grammars;
 
 use Illuminate\Database\Query\Builder;
-use Illuminate\Database\Query\Grammars\PostgresGrammar as LaravelPostgresGrammar;
+use Illuminate\Database\Query\Grammars\MySqlGrammar as LaravelMysqlGrammar;
 
 /**
  * Class MysqlGrammar
  *
- * @package Bosnadev\Database\Query\Grammars
+ * @package Mammutgroup\Database\Query\Grammars
  */
-class MysqlGrammar extends LaravelPostgresGrammar
+class MysqlGrammar extends LaravelMysqlGrammar
 {
     /**
      * @var array

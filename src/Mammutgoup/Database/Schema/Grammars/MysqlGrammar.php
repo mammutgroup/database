@@ -1,14 +1,14 @@
 <?php
 
-namespace Bosnadev\Database\Schema\Grammars;
+namespace Mammutgroup\Database\Schema\Grammars;
 
 use Illuminate\Support\Fluent;
 use Illuminate\Database\Schema\Blueprint as BaseBlueprint;
-use Bosnadev\Database\Schema\Blueprint;
+use Mammutgroup\Database\Schema\Blueprint;
 
 /**
- * Class PostgresGrammar
- * @package Bosnadev\Database\Schema\Grammars
+ * Class MysqlGrammar
+ * @package Mammutgroup\Database\Schema\Grammars
  */
 class MysqlGrammar extends \Illuminate\Database\Schema\Grammars\MySqlGrammar
 {
@@ -42,7 +42,7 @@ class MysqlGrammar extends \Illuminate\Database\Schema\Grammars\MySqlGrammar
      */
     protected function typeUuid(Fluent $column)
     {
-        return "char(36)";
+        return "char(100)";
     }
 
     /**
@@ -250,7 +250,7 @@ class MysqlGrammar extends \Illuminate\Database\Schema\Grammars\MySqlGrammar
     {
         return "daterange";
     }
-    
+
     /**
      * Create the column definition for a Text Search Vector type.
      *
@@ -288,7 +288,7 @@ class MysqlGrammar extends \Illuminate\Database\Schema\Grammars\MySqlGrammar
     /**
      * Compile a gin index key command.
      *
-     * @param  \Bosnadev\Database\Schema\Blueprint  $blueprint
+     * @param  \Mammutgroup\Database\Schema\Blueprint  $blueprint
      * @param  \Illuminate\Support\Fluent  $command
      * @return string
      */
@@ -298,11 +298,11 @@ class MysqlGrammar extends \Illuminate\Database\Schema\Grammars\MySqlGrammar
 
         return sprintf('CREATE INDEX %s ON %s USING GIN(%s)', $command->index, $this->wrapTable($blueprint), $columns);
     }
-    
+
     /**
      * Compile a gist index key command.
      *
-     * @param  \Bosnadev\Database\Schema\Blueprint  $blueprint
+     * @param  \Mammutgroup\Database\Schema\Blueprint  $blueprint
      * @param  \Illuminate\Support\Fluent  $command
      * @return string
      */
@@ -313,4 +313,20 @@ class MysqlGrammar extends \Illuminate\Database\Schema\Grammars\MySqlGrammar
         return sprintf('CREATE INDEX %s ON %s USING GIST(%s)', $command->index, $this->wrapTable($blueprint), $columns);
     }
 
+//    /**
+//     * Compile create table query.
+//     *
+//     * @param  Illuminate\Database\Schema\Blueprint  $blueprint
+//     * @param  \Illuminate\Support\Fluent  $command
+//     * @return string
+//     */
+//    public function compileCreate(BaseBlueprint $blueprint, Fluent $command)
+//    {
+//        $sql = parent::compileCreate($blueprint, $command);
+//
+//        if (isset($blueprint->inherits)) {
+//            $sql .= ' INHERITS ("'.$blueprint->inherits.'")';
+//        }
+//        return $sql;
+//    }
 }

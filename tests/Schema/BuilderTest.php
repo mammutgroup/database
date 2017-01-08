@@ -1,14 +1,14 @@
 <?php
 
-use Bosnadev\Database\PostgresConnection;
-use Bosnadev\Database\Schema\Builder;
-use Bosnadev\Database\Schema\Blueprint;
+use Mammutgroup\Database\MysqlConnection;
+use Mammutgroup\Database\Schema\Builder;
+use Mammutgroup\Database\Schema\Blueprint;
 
 class BuilderTest extends BaseTestCase
 {
     public function testReturnsCorrectBlueprint()
     {
-        $connection = Mockery::mock(PostgresConnection::class);
+        $connection = Mockery::mock(MysqlConnection::class);
         $connection->shouldReceive('getSchemaGrammar')->once()->andReturn(null);
 
         $mock = Mockery::mock(Builder::class, [ $connection ]);

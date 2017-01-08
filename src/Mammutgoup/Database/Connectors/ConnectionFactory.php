@@ -1,16 +1,16 @@
 <?php
 
-namespace Bosnadev\Database\Connectors;
+namespace Mammutgroup\Database\Connectors;
 
 use PDO;
 use Illuminate\Database\MySqlConnection;
 use Illuminate\Database\SQLiteConnection;
 use Illuminate\Database\SqlServerConnection;
-use Bosnadev\Database\MysqlConnection as myMysqlConnection;
+use Mammutgroup\Database\MysqlConnection as MyMysqlConnection;
 
 /**
  * Class ConnectionFactory
- * @package Bosnadev\Database\Connectors
+ * @package Mammutgroup\Database\Connectors
  */
 class ConnectionFactory extends \Illuminate\Database\Connectors\ConnectionFactory
 {
@@ -20,17 +20,17 @@ class ConnectionFactory extends \Illuminate\Database\Connectors\ConnectionFactor
      * @param string $database
      * @param string $prefix
      * @param array $config
-     * @return MysqlConnection|MySqlConnection|SQLiteConnection|SqlServerConnection|mixed|object
+     * @return MySqlConnection|MySqlConnection|SQLiteConnection|SqlServerConnection|mixed|object
      * @throws \InvalidArgumentException
      */
     protected function createConnection($driver, $connection, $database, $prefix = '', array $config = array())
     {
-        if ($this->container->bound($key = "db.connection.{$driver}")) {
-            return $this->container->make($key, array($connection, $database, $prefix, $config));
-        }
+//        if ($this->container->bound($key = "db.connection.{$driver}")) {
+//            return $this->container->make($key, array($connection, $database, $prefix, $config));
+//        }
 
-        if ($driver === 'pgsql') {
-            return new myMysqlConnection($connection, $database, $prefix, $config);
+        if ($driver === 'mysql') {
+            return new MyMysqlConnection($connection, $database, $prefix, $config);
         }
 
         return parent::createConnection($driver, $connection, $database, $prefix, $config);

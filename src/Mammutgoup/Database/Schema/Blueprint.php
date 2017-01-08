@@ -1,10 +1,10 @@
 <?php
 
-namespace Bosnadev\Database\Schema;
+namespace Mammutgroup\Database\Schema;
 
 /**
  * Class Blueprint
- * @package Bosnadev\Database\Schema
+ * @package Mammutgroup\Database\Schema
  */
 class Blueprint extends \Illuminate\Database\Schema\Blueprint
 {

@@ -1,20 +1,20 @@
 <?php
 
-use Bosnadev\Database\Query\Grammars\PostgresGrammar;
+use Mammutgroup\Database\Query\Grammars\MysqlGrammar;
 use Illuminate\Database\Query\Builder;
 
-class PostgresGrammarTest extends BaseTestCase
+class MysqlGrammarTest extends BaseTestCase
 {
     public function testHstoreWrapValue()
     {
-        $grammar = Mockery::mock(PostgresGrammar::class)->makePartial();
+        $grammar = Mockery::mock(MysqlGrammar::class)->makePartial();
 
         $this->assertEquals('a => b', $grammar->wrapValue('[a => b]'));
     }
 
     public function testJsonWrapValue()
     {
-        $grammar = Mockery::mock(PostgresGrammar::class)->makePartial();
+        $grammar = Mockery::mock(MysqlGrammar::class)->makePartial();
 
         $this->assertEquals('"a"->\'b\'', $grammar->wrapValue("a->'b'"));
         $this->assertEquals('"a"->>\'b\'', $grammar->wrapValue("a->>'b'"));
@@ -24,7 +24,7 @@ class PostgresGrammarTest extends BaseTestCase
 
     public function testWhereNotNull()
     {
-        $grammar = Mockery::mock(PostgresGrammar::class)->makePartial();
+        $grammar = Mockery::mock(MysqlGrammar::class)->makePartial();
         $builder = Mockery::mock(Builder::class);
         $where = [
             'column' => "a->>'b'"
@@ -35,7 +35,7 @@ class PostgresGrammarTest extends BaseTestCase
 
     public function testWhereNull()
     {
-        $grammar = Mockery::mock(PostgresGrammar::class)->makePartial();
+        $grammar = Mockery::mock(MysqlGrammar::class)->makePartial();
         $builder = Mockery::mock(Builder::class);
         $where = [
             'column' => "a->>'b'"

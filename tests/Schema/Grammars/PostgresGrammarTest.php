@@ -1,10 +1,10 @@
 <?php
 
-use Bosnadev\Database\Schema\Blueprint;
-use Bosnadev\Database\PostgresConnection;
-use Bosnadev\Database\Schema\Grammars\PostgresGrammar;
+use Mammutgroup\Database\Schema\Blueprint;
+use Mammutgroup\Database\MysqlConnection;
+use Mammutgroup\Database\Schema\Grammars\MysqlGrammar;
 
-class PostgresGrammarBaseTest extends BaseTestCase
+class MysqlGrammarBaseTest extends BaseTestCase
 {
     public function testAddingGinIndex()
     {
@@ -171,15 +171,15 @@ class PostgresGrammarBaseTest extends BaseTestCase
     }
 
     /**
-     * @return PostgresConnection
+     * @return MysqlConnection
      */
     protected function getConnection()
     {
-        return Mockery::mock(PostgresConnection::class);
+        return Mockery::mock(MysqlConnection::class);
     }
 
     protected function getGrammar()
     {
-        return new PostgresGrammar();
+        return new MysqlGrammar();
     }
 }

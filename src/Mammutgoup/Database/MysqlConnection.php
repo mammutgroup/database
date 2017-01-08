@@ -1,13 +1,13 @@
 <?php
 
-namespace Bosnadev\Database;
+namespace Mammutgroup\Database;
 
 use Illuminate\Database\MySqlConnection as BaseMysqlConnection;
 
 /**
- * Class PostgresConnection
+ * Class MysqlConnection
  *
- * @package Bosnadev\Database
+ * @package Mammutgroup\Database
  */
 class MysqlConnection extends BaseMysqlConnection
 {
@@ -32,7 +32,7 @@ class MysqlConnection extends BaseMysqlConnection
      */
     protected function getDefaultQueryGrammar()
     {
-        return $this->withTablePrefix(new Query\Grammars\MysqlGrammar);
+        return $this->withTablePrefix(new Query\Grammars\MysqlGrammar());
     }
 
 
@@ -43,17 +43,17 @@ class MysqlConnection extends BaseMysqlConnection
      */
     protected function getDefaultSchemaGrammar()
     {
-        return $this->withTablePrefix(new Schema\Grammars\MysqlGrammar);
+        return $this->withTablePrefix(new Schema\Grammars\MysqlGrammar());
     }
 
 
     /**
      * Get the default post processor instance.
      *
-     * @return \Illuminate\Database\Query\Processors\PostgresProcessor
+     * @return \Illuminate\Database\Query\Processors\MysqlProcessor
      */
     protected function getDefaultPostProcessor()
     {
-        return new \Illuminate\Database\Query\Processors\PostgresProcessor;
+        return new \Illuminate\Database\Query\Processors\MySqlProcessor;
     }
 }

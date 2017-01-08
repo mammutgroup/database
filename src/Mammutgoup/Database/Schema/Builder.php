@@ -1,14 +1,14 @@
 <?php
 
-namespace Bosnadev\Database\Schema;
+namespace Mammutgroup\Database\Schema;
 
 use Closure;
 
 /**
  * Class Builder
- * @package Bosnadev\Database\Schema
+ * @package Mammutgroup\Database\Schema
  */
-class Builder extends \Illuminate\Database\Schema\PostgresBuilder
+class Builder extends \Illuminate\Database\Schema\MySqlBuilder
 {
     /**
      * Create a new command set with a Closure.

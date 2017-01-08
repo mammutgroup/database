@@ -1,6 +1,6 @@
 <?php
 
-use Bosnadev\Database\Traits\UuidTrait;
+use Mammutgroup\Database\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class UuidTraitTest extends BaseTestCase
