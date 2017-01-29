@@ -31,7 +31,10 @@
   "autoload": {
     "psr-4": {
       "Mammutgroup\\Database\\": "src/Mammutgroup/Database/"
-    }
+    },
+    "files": [
+      "src/Helpers.php"
+    ]
   },
   "autoload-dev": {
     "classmap": [
