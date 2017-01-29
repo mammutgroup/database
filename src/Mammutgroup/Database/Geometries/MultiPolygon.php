@@ -15,13 +15,13 @@ class MultiPolygon extends Geometry implements Countable
      */
     public function __construct(array $polygons)
     {
-        $validated = array_filter($polygons, function ($value) {
-            return $value instanceof Polygon;
-        });
-
-        if (count($polygons) !== count($validated)) {
+        try{
+            $polygons = array_map('g_linestring', $polygons);
+        }
+        catch (\Exception $e){
             throw new InvalidArgumentException('$polygons must be an array of Points');
         }
+
         $this->polygons = $polygons;
     }
 

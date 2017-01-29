@@ -19,12 +19,11 @@ class MultiLineString extends Geometry implements Countable
             throw new InvalidArgumentException('$linestrings must contain at least one entry');
         }
 
-        $validated = array_filter($linestrings, function ($value) {
-            return $value instanceof LineString;
-        });
-
-        if (count($linestrings) !== count($validated)) {
-            throw new InvalidArgumentException('$linestrings must be an array of Points');
+        try{
+            $linestrings = array_map('g_linestring', $linestrings);
+        }
+        catch (\Exception $e){
+            throw new InvalidArgumentException('$linestrings must be an array of linestrings');
         }
 
         $this->linestrings = $linestrings;
