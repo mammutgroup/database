@@ -33,7 +33,7 @@
       "Mammutgroup\\Database\\": "src/Mammutgroup/Database/"
     },
     "files": [
-      "src/Mammutgroup/Database/Helpers.php"
+      "src/Helpers.php"
     ]
   },
   "autoload-dev": {
