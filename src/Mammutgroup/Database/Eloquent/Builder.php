@@ -16,9 +16,9 @@ class Builder extends EloquentBuilder
         return parent::update($values);
     }
 
-    protected function getPostgisFields()
+    protected function getGeoFields()
     {
-        return $this->getModel()->getPostgisFields();
+        return $this->getModel()->getGeoFields();
     }
 
 

@@ -59,7 +59,17 @@ if (!function_exists('g_point')) {
 }
 
 if (!function_exists('g_linestring')) {
-    function g_linestring(array $points){
+    function g_linestring($points){
+
         return new \Mammutgroup\Database\Geometries\LineString($points);
+    }
+}
+if (!function_exists('g_linestrings')) {
+    function g_linestrings($lineString){
+        if(is_array($lineString)){
+            return new \Mammutgroup\Database\Geometries\LineString($lineString);
+        }
+
+        return $lineString;
     }
 }

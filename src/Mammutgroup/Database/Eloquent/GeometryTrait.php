@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Support\Arr;
-use Mammutgroup\Database\Exceptions\PostgisFieldsNotDefinedException;
+use Mammutgroup\Database\Exceptions\GeoFieldsNotDefinedException;
 use Mammutgroup\Database\Geometries\Geometry;
 use Mammutgroup\Database\Geometries\GeometryInterface;
 
@@ -19,6 +19,16 @@ trait GeometryTrait
     public function newEloquentBuilder($query)
     {
         return new Builder($query);
+    }
+
+    public function newQuery($excludeDeleted = true)
+    {
+        $raw='';
+        foreach($this->geoFields as $column){
+            $raw .= ' ST_AsBinary('.$column.') as '.$column.' ';
+        }
+
+        return parent::newQuery($excludeDeleted)->addSelect('*',\DB::raw($raw));
     }
 
     protected function performInsert(EloquentBuilder $query, array $options = [])
@@ -44,10 +54,11 @@ trait GeometryTrait
 
     public function setRawAttributes(array $attributes, $sync = false)
     {
-        $pgfields = $this->getPostgisFields();
+        $pgfields = $this->getGeoFields();
 
         foreach ($attributes as $attribute => &$value) {
             if (in_array($attribute, $pgfields) && is_string($value) && strlen($value) >= 15) {
+
                 $value = Geometry::fromWKB($value);
             }
         }
@@ -55,14 +66,14 @@ trait GeometryTrait
         parent::setRawAttributes($attributes, $sync);
     }
 
-    public function getPostgisFields()
+    public function getGeoFields()
     {
-        if (property_exists($this, 'postgisFields')) {
-            return Arr::isAssoc($this->postgisFields) ? //Is the array associative?
-                array_keys($this->postgisFields) : //Returns just the keys to preserve compatibility with previous versions
-                $this->postgisFields; //Returns the non-associative array that doesn't define the geometry type.
+        if (property_exists($this, 'geoFields')) {
+            return Arr::isAssoc($this->geoFields) ? //Is the array associative?
+                array_keys($this->geoFields) : //Returns just the keys to preserve compatibility with previous versions
+                $this->geoFields; //Returns the non-associative array that doesn't define the geometry type.
         } else {
-            throw new PostgisFieldsNotDefinedException(__CLASS__ . ' has to define $postgisFields');
+            throw new GeoFieldsNotDefinedException(__CLASS__ . ' has to define $geoFields');
         }
 
     }

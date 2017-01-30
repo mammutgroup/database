@@ -28,6 +28,7 @@ abstract class Geometry implements GeometryInterface, \JsonSerializable
         $left = strpos($value, '(');
         $type = trim(substr($value, 0, $left));
 
+
         switch (strtoupper($type)) {
             case 'POINT':
                 return Point::class;

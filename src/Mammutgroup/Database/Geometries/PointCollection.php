@@ -18,7 +18,7 @@ abstract class PointCollection implements IteratorAggregate, Arrayable, ArrayAcc
     /**
      * @param Point[] $points
      */
-    public function __construct(array $points)
+    public function __construct($points)
     {
         if (count($points) < 2) {
             throw new InvalidArgumentException('$points must contain at least two entries');
