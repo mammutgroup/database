@@ -8,8 +8,8 @@ use Mammutgroup\Database\Geometries\GeometryInterface;
 
 trait GeometryTrait
 {
-
     public $geometries = [];
+
     /**
      * Create a new Eloquent query builder for the model.
      *
@@ -23,33 +23,12 @@ trait GeometryTrait
 
     public function newQuery($excludeDeleted = true)
     {
-        $raw='';
-        foreach($this->geoFields as $column){
-            $raw .= ' ST_AsBinary('.$column.') as '.$column.' ';
+        $raw = '';
+        foreach ($this->geoFields as $column) {
+            $raw .= ' ST_AsBinary(' . $column . ') as ' . $column . ' ';
         }
 
-        return parent::newQuery($excludeDeleted)->addSelect('*',\DB::raw($raw));
-    }
-
-    protected function performInsert(EloquentBuilder $query, array $options = [])
-    {
-        foreach ($this->attributes as $key => $value) {
-            if ($value instanceof GeometryInterface && ! $value instanceof GeometryCollection) {
-                $this->geometries[$key] = $value; //Preserve the geometry objects prior to the insert
-                $this->attributes[$key] = $this->getConnection()->raw(sprintf("ST_GeomFromText('%s')", $value->toWKT()));
-            }  else if ($value instanceof GeometryInterface && $value instanceof GeometryCollection) {
-                $this->geometries[$key] = $value; //Preserve the geometry objects prior to the insert
-                $this->attributes[$key] = $this->getConnection()->raw(sprintf("ST_GeomFromText('%s', 4326)", $value->toWKT()));
-            }
-        }
-
-        $insert = parent::performInsert($query, $options);
-
-        foreach($this->geometries as $key => $value){
-            $this->attributes[$key] = $value; //Retrieve the geometry objects so they can be used in the model
-        }
-
-        return $insert; //Return the result of the parent insert
+        return parent::newQuery($excludeDeleted)->addSelect('*', \DB::raw($raw));
     }
 
     public function setRawAttributes(array $attributes, $sync = false)
@@ -75,6 +54,47 @@ trait GeometryTrait
         } else {
             throw new GeoFieldsNotDefinedException(__CLASS__ . ' has to define $geoFields');
         }
+    }
 
+    protected function performInsert(EloquentBuilder $query, array $options = [])
+    {
+        foreach ($this->attributes as $key => $value) {
+            if ($value instanceof GeometryInterface && !$value instanceof GeometryCollection) {
+                $this->geometries[$key] = $value; //Preserve the geometry objects prior to the insert
+                $this->attributes[$key] = $this->getConnection()->raw(sprintf("ST_GeomFromText('%s')", $value->toWKT()));
+            } else if ($value instanceof GeometryInterface && $value instanceof GeometryCollection) {
+                $this->geometries[$key] = $value; //Preserve the geometry objects prior to the insert
+                $this->attributes[$key] = $this->getConnection()->raw(sprintf("ST_GeomFromText('%s', 4326)", $value->toWKT()));
+            }
+        }
+
+        $insert = parent::performInsert($query, $options);
+
+        foreach ($this->geometries as $key => $value) {
+            $this->attributes[$key] = $value; //Retrieve the geometry objects so they can be used in the model
+        }
+
+        return $insert; //Return the result of the parent insert
+    }
+
+    protected function performUpdate(EloquentBuilder $query, array $options = [])
+    {
+        foreach ($this->attributes as $key => $value) {
+            if ($value instanceof GeometryInterface && !$value instanceof GeometryCollection) {
+                $this->geometries[$key] = $value; //Preserve the geometry objects prior to the insert
+                $this->attributes[$key] = $this->getConnection()->raw(sprintf("ST_GeomFromText('%s')", $value->toWKT()));
+            } else if ($value instanceof GeometryInterface && $value instanceof GeometryCollection) {
+                $this->geometries[$key] = $value; //Preserve the geometry objects prior to the insert
+                $this->attributes[$key] = $this->getConnection()->raw(sprintf("ST_GeomFromText('%s', 4326)", $value->toWKT()));
+            }
+        }
+
+        $update = parent::performUpdate($query, $options);
+
+        foreach ($this->geometries as $key => $value) {
+            $this->attributes[$key] = $value; //Retrieve the geometry objects so they can be used in the model
+        }
+
+        return $update; //Return the result of the parent insert
     }
 }

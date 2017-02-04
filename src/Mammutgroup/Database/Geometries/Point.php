@@ -14,26 +14,32 @@ class Point extends Geometry
 
     public function setLngLat($lng, $lat = null)
     {
-        if (is_object($lng) && $lng instanceof $this){
+        if (is_object($lng) && $lng instanceof $this) {
             $this->setLng($lng->getLng());
             $this->setLat($lng->getLat());
             return $this;
         }
 
         if (is_string($lng)) {
-            $lng=trim($lng);
-            if (preg_match('~^\-?\d+(\.\d+)?\s*,\s*\-?\d+(\.\d+)?$~', $lng)){
+            $lng = trim($lng);
+            if (preg_match('~^\-?\d+(\.\d+)?\s*,\s*\-?\d+(\.\d+)?$~', $lng)) {
                 $lng = explode(',', $lng);
-            }elseif ($json = g_is_point($lng)){
-                $lat = $json['coordinates'][0];
-                $lng = $json['coordinates'][1];
+            } elseif ($json = g_is_point($lng)) {
+                $lat = $json['coordinates'][1];
+                $lng = $json['coordinates'][0];
             }
         }
 
         if (is_array($lng)) {
             $lng = array_map('trim', $lng);
-            $lat = $lng[1];
-            $lng = $lng[0];
+            if (isset($lng['lat'])) {
+                $lat = $lng['lat'];
+                $lng = $lng['lng'];
+            } else {
+
+                $lat = $lng[1];
+                $lng = $lng[0];
+            }
         }
 
         $this->setLng($lng);
@@ -48,7 +54,7 @@ class Point extends Geometry
 
     public function setLat($lat)
     {
-        if (g_is_valid_lat($lat)){
+        if (g_is_valid_lat($lat)) {
             return $this->lat = (float)$lat;
         }
 
@@ -62,7 +68,7 @@ class Point extends Geometry
 
     public function setLng($lng)
     {
-        if (g_is_valid_lng($lng)){
+        if (g_is_valid_lng($lng)) {
             return $this->lng = (float)$lng;
         }
 
@@ -78,7 +84,7 @@ class Point extends Geometry
     {
         list($lng, $lat) = explode(' ', trim($pair));
 
-        return new static((float)$lat, (float)$lng);
+        return new static((float)$lng, (float)$lat);
     }
 
     public function toWKT()

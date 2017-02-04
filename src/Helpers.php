@@ -54,19 +54,22 @@ if (!function_exists('g_is_polygon')) {
 if (!function_exists('g_point')) {
     function g_point($lng, $lat = null)
     {
+
         return new \Mammutgroup\Database\Geometries\Point($lng, $lat);
     }
 }
 
 if (!function_exists('g_linestring')) {
-    function g_linestring($points){
+    function g_linestring($points)
+    {
 
         return new \Mammutgroup\Database\Geometries\LineString($points);
     }
 }
 if (!function_exists('g_linestrings')) {
-    function g_linestrings($lineString){
-        if(is_array($lineString)){
+    function g_linestrings($lineString)
+    {
+        if (is_array($lineString)) {
             return new \Mammutgroup\Database\Geometries\LineString($lineString);
         }
 

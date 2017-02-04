@@ -28,6 +28,7 @@ abstract class PointCollection implements IteratorAggregate, Arrayable, ArrayAcc
             $points = array_map('g_point', $points);
         }
         catch (\Exception $e){
+
             throw new InvalidArgumentException('$points must be an array of Points');
         }
 
