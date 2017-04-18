@@ -25,7 +25,7 @@ trait GeometryTrait
     {
         $raw = '';
         foreach ($this->geoFields as $column) {
-            $raw .= ' ST_AsBinary(' . $column . ') as ' . $column . ' ';
+		$raw .= ' ST_AsBinary(' . $column . ') as ' . $column . '_alias ';
         }
 
         return parent::newQuery($excludeDeleted)->addSelect('*', \DB::raw($raw));
@@ -36,9 +36,14 @@ trait GeometryTrait
         $pgfields = $this->getGeoFields();
 
         foreach ($attributes as $attribute => &$value) {
-            if (in_array($attribute, $pgfields) && is_string($value) && strlen($value) >= 15) {
 
-                $value = Geometry::fromWKB($value);
+            if (in_array($attribute, $pgfields)) {
+		$value = $attributes[$attribute.'_alias'];
+
+                if(is_string($value) && strlen($value) >= 15){
+
+                    $value = Geometry::fromWKB($value);
+		}
             }
         }
 
