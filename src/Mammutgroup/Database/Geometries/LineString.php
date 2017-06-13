@@ -37,8 +37,9 @@ class LineString extends PointCollection implements GeometryInterface
     public function jsonSerialize()
     {
         $points = [];
+
         foreach ($this->points as $point) {
-            $points[] = $point->jsonSerialize();
+            $points[] = $point->jsonSerialize()->getCoordinates();
         }
 
         return new \GeoJson\Geometry\LineString($points);

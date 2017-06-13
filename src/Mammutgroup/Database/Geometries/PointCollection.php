@@ -25,10 +25,16 @@ abstract class PointCollection implements IteratorAggregate, Arrayable, ArrayAcc
         }
         
         try{
-            $points = array_map('g_point', $points);
+            if(!is_object($points) ){
+
+                $points = array_map('g_point', $points);
+            }else{
+                //$points = $points->jsonSerialize()->getCoordinates();
+            }
+
         }
         catch (\Exception $e){
-
+dd($e);
             throw new InvalidArgumentException('$points must be an array of Points');
         }
 

@@ -59,6 +59,15 @@ if (!function_exists('g_point')) {
     }
 }
 
+if (!function_exists('g_polygon')) {
+    function g_polygon($lineString)
+    {
+        if(is_object($lineString) && is_a($lineString,\Mammutgroup\Database\Geometries\Polygon::class)){
+            return $lineString;
+        }
+        return new \Mammutgroup\Database\Geometries\Polygon($lineString);
+    }
+}
 if (!function_exists('g_linestring')) {
     function g_linestring($points)
     {
@@ -67,12 +76,12 @@ if (!function_exists('g_linestring')) {
     }
 }
 if (!function_exists('g_linestrings')) {
-    function g_linestrings($lineString)
+    function g_linestrings($lineStrings)
     {
-        if (is_array($lineString)) {
-            return new \Mammutgroup\Database\Geometries\LineString($lineString);
+        if (is_array($lineStrings)) {
+            return new \Mammutgroup\Database\Geometries\MultiLineString($lineStrings);
         }
 
-        return $lineString;
+        return $lineStrings;
     }
 }

@@ -18,7 +18,8 @@ class Polygon extends MultiLineString implements Countable
     {
         $linearrings = [];
         foreach ($this->linestrings as $linestring) {
-            $linearrings[] = new \GeoJson\Geometry\LinearRing($linestring->jsonSerialize()->getCoordinates());
+            //$linearrings[] = new \GeoJson\Geometry\LinearRing($linestring->jsonSerialize()->getCoordinates());
+            $linearrings[] = $linestring->jsonSerialize()->getCoordinates();
         }
 
         return new \GeoJson\Geometry\Polygon($linearrings);

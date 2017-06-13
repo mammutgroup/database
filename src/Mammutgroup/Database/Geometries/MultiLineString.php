@@ -21,10 +21,10 @@ class MultiLineString extends Geometry implements Countable
 
         try{
             
-            $linestrings = array_map('g_linestrings', $linestrings);
+            $linestrings = array_map('g_linestring', $linestrings);
         }
         catch (\Exception $e){
-            dd($e);
+dd($e);
             throw new InvalidArgumentException('$linestrings must be an array of linestrings');
         }
 

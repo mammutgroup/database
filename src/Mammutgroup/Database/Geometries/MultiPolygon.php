@@ -16,7 +16,7 @@ class MultiPolygon extends Geometry implements Countable
     public function __construct(array $polygons)
     {
         try{
-            $polygons = array_map('g_linestring', $polygons);
+            $polygons = array_map('g_polygon', $polygons);
         }
         catch (\Exception $e){
             throw new InvalidArgumentException('$polygons must be an array of Points');
@@ -115,7 +115,8 @@ class MultiPolygon extends Geometry implements Countable
     {
         $polygons = [];
         foreach ($this->polygons as $polygon) {
-            $polygons[] = $polygon->jsonSerialize();
+
+            $polygons[] = $polygon->jsonSerialize()->getCoordinates();
         }
 
         return new \GeoJson\Geometry\MultiPolygon($polygons);
