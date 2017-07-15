@@ -23,27 +23,32 @@ trait GeometryTrait
 
     public function newQuery($excludeDeleted = true)
     {
-        $raw = '';
-        foreach ($this->geoFields as $column) {
-		$raw .= ' ST_AsBinary(' . $column . ') as ' . $column . '_alias ';
+        if (empty($this->geoFields)) {
+            return parent::newQuery($excludeDeleted);
         }
 
-        return parent::newQuery($excludeDeleted)->addSelect('*', \DB::raw($raw));
+        $raw = [];
+        foreach ($this->geoFields as $column) {
+            $raw[] = 'ST_AsBinary(' . $column . ') as ' . $column . '_alias ';
+        }
+        
+        return parent::newQuery($excludeDeleted)->addSelect('*', \DB::raw(implode(', ', $raw)));
     }
 
     public function setRawAttributes(array $attributes, $sync = false)
     {
-        $pgfields = $this->getGeoFields();
+        if (!empty($this->geoFields)) {
+            $pgfields = $this->getGeoFields();
+            foreach ($attributes as $attribute => &$value) {
 
-        foreach ($attributes as $attribute => &$value) {
+                if (in_array($attribute, $pgfields)) {
+                    $value = $attributes[$attribute . '_alias'];
 
-            if (in_array($attribute, $pgfields)) {
-		$value = $attributes[$attribute.'_alias'];
+                    if (is_string($value) && strlen($value) >= 15) {
 
-                if(is_string($value) && strlen($value) >= 15){
-
-                    $value = Geometry::fromWKB($value);
-		}
+                        $value = Geometry::fromWKB($value);
+                    }
+                }
             }
         }
 
